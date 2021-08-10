@@ -1,0 +1,22 @@
+class Solution {
+    public int maxEqualRowsAfterFlips(int[][] matrix) {
+        int ans = Integer.MIN_VALUE;
+        int m = matrix.length;
+        int n = matrix[0].length;
+        for(int i = 0;i<m;i++){
+            int count = 0;
+            int[] flip = new int[n];
+            for(int j = 0;j<n;j++){
+                flip[j] = 1 - matrix[i][j];
+            }
+            
+            for(int k = i;k<m;k++){
+                if( Arrays.equals( matrix[k],matrix[i] ) || Arrays.equals(matrix[k],flip ) ) count++;
+            }
+           
+            ans = Math.max(ans,count);
+        }
+        
+        return ans;
+    }
+}
