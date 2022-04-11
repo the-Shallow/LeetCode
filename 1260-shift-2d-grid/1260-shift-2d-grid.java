@@ -14,6 +14,8 @@ class Solution {
             res.add(temp);
             
             for(int j = 0;j<cols;j++){
+                 // i * n + j original place index in 1D array
+                // i * n + j - k  is to get value k steps before
                 int index = ( ( (i * cols) + j ) - k + dimension ) % dimension;
                 
                 temp.add( grid[index / cols][index % cols ] );
