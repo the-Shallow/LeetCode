@@ -14,7 +14,7 @@ class Solution {
 				} else if(board[i][j] ==0){
 					int activeNeigh = getActiveNeigh(board, i,j);
 					if(activeNeigh == 3){
-						board[i][j] = -1; // will become active in next state
+						board[i][j] = 3; // will become active in next state
 					}
 				}
 			}
@@ -29,7 +29,7 @@ class Solution {
 				if(board[i][j] ==-2){
 					board[i][j] = 0;
 				}
-				if(board[i][j] ==-1){
+				if(board[i][j] ==3){
 					board[i][j] = 1;
 				}
 			}
