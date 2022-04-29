@@ -3,8 +3,8 @@ class Solution {
         String input1 = Integer.toBinaryString(a);
         String input2 = Integer.toBinaryString(b);
         
-        System.out.println( input1.length() + " " +  input2.length() );
-        System.out.println( input1  + " " + input2 );
+        // System.out.println( input1.length() + " " +  input2.length() );
+        // System.out.println( input1  + " " + input2 );
         
         if( input1.length() != input2.length() ){
             if( input1.length() < input2.length() ){
@@ -29,7 +29,7 @@ class Solution {
             char ch2 = input2.charAt(i);
             
             String combined = carry + "" + ch1 + "" + ch2;
-            System.out.println(combined);
+            // System.out.println(combined);
                 
             switch( combined ){
                 case "000":{
@@ -74,7 +74,7 @@ class Solution {
         
         if(carry == 1) sb.append('1');
         sb.reverse();
-        System.out.println( sb.toString() );
+        // System.out.println( sb.toString() );
         return (int)Long.parseLong( sb.toString() , 2 );
     }
 }
