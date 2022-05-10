@@ -4,9 +4,8 @@ class Solution {
     public List<List<Integer>> combinationSum3(int k, int n) {
         if( k > n ) return res;
         
-        for( int i = 1;i<=9;i++ ){
-            helper( i , new ArrayList<Integer>() , k , 0 , n);
-        }
+     
+            helper( 1 , new ArrayList<Integer>() , k , 0 , n);
         
         return res;
     }
