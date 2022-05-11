@@ -5,9 +5,9 @@ class Solution {
         return count;
     }
     public void helper(int n, int pre, int index){
-        if(n == 0 ){
+        if( n == 0 ){
             // System.out.println(n==0);    
-            count += n == 0 ? 1 : 0;
+            count += 1;
             return;
         }
         for(int i = index; i<5; i++){
