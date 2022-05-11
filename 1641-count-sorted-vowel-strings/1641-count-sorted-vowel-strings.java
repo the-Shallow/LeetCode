@@ -5,7 +5,7 @@ class Solution {
         return count;
     }
     public void helper(int n, int pre, int index){
-        if(n == 0 || pre > index){
+        if(n == 0 ){
             // System.out.println(n==0);    
             count += n == 0 ? 1 : 0;
             return;
