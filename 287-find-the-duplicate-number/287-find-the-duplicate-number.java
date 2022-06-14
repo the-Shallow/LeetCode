@@ -1,3 +1,5 @@
+// Spcae Complexity = O(1)
+// Time Complexity = O(nlogn)
 class Solution {
     public int findDuplicate(int[] nums) {
         int low = 1,high = nums.length - 1;
