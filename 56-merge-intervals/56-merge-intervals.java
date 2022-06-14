@@ -1,3 +1,5 @@
+// Space Complexity = O(1)
+// Time Complexity = O(n)
 class Solution {
     public int[][] merge(int[][] intervals) {
         if( intervals.length <= 1 ) return intervals;
