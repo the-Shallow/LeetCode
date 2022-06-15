@@ -1,5 +1,10 @@
-// Space Complexity = O(n)
-// Time Complexity = O(n)
+// Normal Stack or Recursion Traversal:--
+    // Space Complexity = O(n)
+    // Time Complexity = O(n)
+
+// Morris Traversal:--
+    // Space Complexity = O(1)
+    // Time Complexity = O(n)
 
 /**
  * Definition for a binary tree node.
@@ -22,6 +27,35 @@ class Solution {
     }
     
     public List<Integer> inorder(TreeNode root){
+        List<Integer> res = new ArrayList<>();
+        
+        TreeNode curr = root;
+        
+        while( curr != null ){
+            if( curr.left == null ){
+                res.add(curr.val);
+                curr = curr.right;
+            }else {
+                TreeNode pre = curr.left;
+                while(pre.right != null){
+                    pre = pre.right;
+                }
+                
+                pre.right = curr;
+                
+                TreeNode temp = curr;
+                curr = curr.left;
+                temp.left = null;
+            }
+        }
+        
+        return res;
+    }
+}
+
+
+/*
+public List<Integer> inorder(TreeNode root){
         Stack<TreeNode> stack = new Stack<>();
         List<Integer> res = new ArrayList<>();
         
@@ -39,4 +73,4 @@ class Solution {
         
         return res;
     }
-}
+*/
