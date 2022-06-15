@@ -31,21 +31,24 @@ class Solution {
         
         TreeNode curr = root;
         
-        while( curr != null ){
-            if( curr.left == null ){
-                res.add(curr.val);
+        while(curr != null){
+            if(curr.left == null){
+                 res.add(curr.val);
                 curr = curr.right;
             }else {
                 TreeNode pre = curr.left;
-                while(pre.right != null){
+                while(pre.right != null &&  pre.right != curr){
                     pre = pre.right;
                 }
-                
-                pre.right = curr;
-                
-                TreeNode temp = curr;
-                curr = curr.left;
-                temp.left = null;
+
+                if(pre.right == null){
+                    pre.right = curr;  
+                    curr = curr.left;
+                }else {
+                    res.add(curr.val);
+                    pre.right = null;
+                    curr = curr.right;
+                }
             }
         }
         
