@@ -1,3 +1,5 @@
+// Space Complexity = O(height)
+// Time Complexity = O(n)
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -44,7 +46,6 @@ class Solution {
         
         if(root.left == null && root.right == null){
             currmax = Math.max( currmax , root.val );
-            // System.out.println("helllo" + currmax);
             return new NodeInfo( root.val , root.val ,root.val,currmax,true );
         }
         
