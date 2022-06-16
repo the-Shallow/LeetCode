@@ -1,3 +1,5 @@
+// Space Complexity = O(log( nums ) ) i.e height of a tree
+// Time Complexity = O(n)
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
