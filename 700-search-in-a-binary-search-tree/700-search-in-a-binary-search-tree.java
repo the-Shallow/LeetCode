@@ -1,5 +1,5 @@
 // Space Complexity = O(1)
-// Time Complexity = O(n)
+// Time Complexity = O(logn)
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
