@@ -1,4 +1,4 @@
-// Space Complexity = O(1)
+// Space Complexity = O(n)
 // Time Complexity = O(n)
 /**
  * Definition for a binary tree node.
