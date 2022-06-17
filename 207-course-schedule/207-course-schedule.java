@@ -2,39 +2,41 @@ class Solution {
     public boolean canFinish(int numCourses, int[][] prerequisites) {
         int[] indegree = new int[numCourses];
         
+        
         for( int[] pre : prerequisites ){
             indegree[pre[0]]++;
         }
         
-        
         Queue<Integer> queue = new LinkedList<>();
-      
         
-        for( int i = 0;i<numCourses;i++ ){
-            if(indegree[i] == 0) queue.offer(i);
+        for( int i = 0;i<indegree.length;i++ ){
+            if( indegree[i] == 0 ) queue.offer( i );
         }
         
         if( queue.isEmpty() ) return false;
         
         while( !queue.isEmpty() ){
-            int course = queue.poll();
-            
-            for( int[] pre : prerequisites ){
-                if(pre[1] == course){
-                    indegree[pre[0]]--;
-                    
-                    if( indegree[pre[0]] == 0 ){
-                        queue.offer( pre[0] );
+            int size = queue.size();
+            for( int i = 0;i<size;i++ ){
+                int course = queue.poll();
+                
+                for( int[] pre : prerequisites ){
+                    if( pre[1] == course ){
+                        indegree[pre[0]]--;
+                        
+                        if( indegree[pre[0]] == 0 ){
+                            queue.offer( pre[0] );
+                        }
                     }
                 }
             }
         }
         
-        
-        for( int num : indegree ){
-            if( num != 0 ) return false;
+        for( int i = 0;i<indegree.length;i++ ){
+            if( indegree[i] > 0 ) return false;
         }
         
         return true;
+         
     }
 }
