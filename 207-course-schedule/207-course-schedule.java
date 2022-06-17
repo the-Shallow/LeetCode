@@ -1,3 +1,5 @@
+// TC: O(P + V + E)
+// SC: O(V)  
 class Solution {
     public boolean canFinish(int numCourses, int[][] prerequisites) {
         int[] indegree = new int[numCourses];
