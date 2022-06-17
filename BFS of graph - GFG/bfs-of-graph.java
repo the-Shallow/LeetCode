@@ -40,23 +40,20 @@ class Solution {
         Set<Integer> set = new HashSet<>();
         Queue<Integer> queue = new LinkedList<>();
         queue.add(0);
+        set.add(0);
         
         while( !queue.isEmpty() ){
             int size = queue.size();
             for( int i = 0;i<size;i++ ){
                 int val = queue.poll();
                 
-                if(!set.contains(val)) {
-                    res.add(val);
-                    set.add(val);
-                }else {
-                    continue;
-                }
-                
-                
+                res.add(val);
+
                 List<Integer> neighbors = adj.get(val);
                 for( int neighbor : neighbors ){
+                    if( set.contains(neighbor) ) continue;
                     queue.offer(neighbor);
+                    set.add(neighbor);
                 }
             }
         }
