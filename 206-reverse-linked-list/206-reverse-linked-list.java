@@ -1,3 +1,5 @@
+// Space Complexity = O(1)
+// Time Complexity = o(N)
 /**
  * Definition for singly-linked list.
  * public class ListNode {
