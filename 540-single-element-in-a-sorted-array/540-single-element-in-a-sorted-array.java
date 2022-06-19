@@ -1,3 +1,5 @@
+// Space Complexity = O(1)
+// Time Complexity = O(logn)
 class Solution {
     public int singleNonDuplicate(int[] nums) {
         int left = 0,right = nums.length - 1;
