@@ -1,3 +1,5 @@
+// Space Complexity = O(N)
+// Time Complexity = O(1)
 class MyStack {
     LinkedList<Integer> intQueue;
     /** Initialize your data structure here. */
