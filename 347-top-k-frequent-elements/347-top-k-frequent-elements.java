@@ -1,3 +1,5 @@
+// Space Complexity = O(n)
+// Time Complexity = O(n)
 class Solution {
     public int[] topKFrequent(int[] nums, int k) {
         int[] res = new int[k];
