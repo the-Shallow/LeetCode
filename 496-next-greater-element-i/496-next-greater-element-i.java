@@ -1,4 +1,5 @@
-// 
+// Space Complexity = O(m + n)
+// Time Complexity = O(m + n)
 class Solution {
     public int[] nextGreaterElement(int[] nums1, int[] nums2) {
         Map<Integer,Integer> map = new HashMap<>();
