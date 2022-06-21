@@ -34,43 +34,57 @@ class Solution
     //Function to find if there is a celebrity in the party or not.
     int celebrity(int M[][], int n)
     {
-    	Queue<Integer> queue = new LinkedList<>();
-    	
-    	for( int i = 0;i<n;i++ ){
-    	    queue.offer(i);
-    	}
-    	
-    	int prev_size = Integer.MAX_VALUE;
-    	int counter = 0;
-    	while( queue.size() > 1 ){
-    	    prev_size = queue.size();
-    	    int a = queue.poll();
-    	    int b = queue.poll();
-    	    
-    	    if( counter == n ) return -1;
-    	    boolean a_knows = knows( M ,a , b );
-    	    boolean b_knows = knows( M ,b  ,a );
-    	    
-    	    if( ( a_knows && b_knows ) || ( !a_knows && !b_knows )  ){
-    	   
-    	        if( queue.size() == 0 ) return -1;
-    	        
-    	        queue.offer( a );
-    	        queue.offer( b );
-    	        
-    	        if( queue.size() == prev_size ){
-    	            counter++;
-    	        }else {
-    	            counter = 0;
-    	        }
-    	    }else {
-    	        if( a_knows ) queue.offer( b );
-    	        else queue.offer( a );
-    	        counter = 0;
-    	    }
-    	}
-    	
-    	return queue.poll();
+    	Stack<Integer> st = new Stack<>();
+        int c;
+ 
+        // Step 1 :Push everybody
+        // onto stack
+        for (int i = 0; i < n; i++)
+        {
+            st.push(i);
+        }
+ 
+        while (st.size() > 1)
+        {
+            // Step 2 :Pop off top
+            // two persons from the
+            // stack, discard one
+            // person based on return
+            // status of knows(A, B).
+            int a = st.pop();
+            int b = st.pop();
+ 
+            // Step 3 : Push the
+            // remained person onto stack.
+            if (knows(M , a, b))
+            {
+                st.push(b);
+            }
+ 
+            else
+                st.push(a);
+        }
+       
+        // If there are only two people
+        // and there is no
+        // potential candidate
+        if(st.empty())
+            return -1;
+ 
+        c = st.pop();
+ 
+        // Step 5 : Check if the last
+        // person is celebrity or not
+        for (int i = 0; i < n; i++)
+        {
+            // If any person doesn't
+            //  know 'c' or 'a' doesn't
+            // know any person, return -1
+            if (i != c && (knows(M,c, i) ||
+                          !knows(M,i, c)))
+                return -1;
+        }
+        return c;
     }
     
     boolean knows( int[][] M , int A , int B ){
