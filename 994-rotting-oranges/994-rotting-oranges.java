@@ -1,3 +1,5 @@
+// Space Complexity = O(R*C)
+// Time Complexity = O(R*C)
 class Solution {
     public int orangesRotting(int[][] grid) {
         int rows = grid.length;
