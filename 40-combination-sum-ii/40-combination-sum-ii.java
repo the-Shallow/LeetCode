@@ -3,8 +3,9 @@ class Solution {
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
         Arrays.sort(candidates);
         List<Integer> temp = new ArrayList<>();
+        
         for(int i = 0;i<candidates.length;i++){
-            helper(candidates,0,target,temp,0);
+            helper(candidates,0,target,temp,i);
         }
         
         return res;
