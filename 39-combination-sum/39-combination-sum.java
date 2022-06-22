@@ -1,3 +1,5 @@
+// Space Complexity = O(n2^n)
+// Time Complexity = O(t2^n) ( t = time taken to add list to res )
 class Solution {
     List<List<Integer>> res = new ArrayList<>();
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
