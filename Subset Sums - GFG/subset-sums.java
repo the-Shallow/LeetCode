@@ -34,18 +34,22 @@ class GFG
 class Solution{
     ArrayList<Integer> list = new ArrayList<>();
     ArrayList<Integer> subsetSums(ArrayList<Integer> arr, int N){
-        helper(arr , 0 , 0 , N);
+        
+        for( int k = 0;k<=N;k++ ){
+            helper( arr , k ,0, 0 , N );
+        }
         
         return list;
     }
     
-    public void helper( ArrayList<Integer> arr , int curr_index , int sum , int N ){
-        if( curr_index == N ) {
+    public void helper( ArrayList<Integer> arr , int k , int sum ,int curr_index , int N ){
+        if( k == 0 ){
             list.add(sum);
             return;
         }
         
-        helper( arr , curr_index + 1, sum + arr.get(curr_index) , N );
-        helper( arr , curr_index + 1, sum  , N );
+        for( int i = curr_index ; i < N;i++ ){
+            helper( arr , k - 1 , sum + arr.get(i) , i+1,N );
+        }
     }
 }
