@@ -1,3 +1,5 @@
+// Space Complexity = o(N^2)
+// Time Complexity = O(n!)
 class Solution {
     List<List<String>> res = new ArrayList<>();
     public List<List<String>> solveNQueens(int n) {
@@ -32,7 +34,6 @@ class Solution {
         
         for( int j = 0;j<n;j++ ){
             if( cols.contains(j) || posDiag.contains(curr_row+j) || negDiag.contains(curr_row-j) ) continue;
-            
             cols.add(j);
             posDiag.add(curr_row+j);
             negDiag.add(curr_row-j);
@@ -46,6 +47,7 @@ class Solution {
             negDiag.remove(curr_row-j);
             
             board.get(curr_row).set(j,".");
+            
         }
     }
     
