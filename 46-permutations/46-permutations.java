@@ -1,5 +1,5 @@
-// Space Complexity = O(n!*n)
-// Time Complexity = O(n!)
+// Space Complexity = O(n!)
+// Time Complexity = O(n!*n)
 class Solution {
     List<List<Integer>> result = new ArrayList<List<Integer>>();
     public List<List<Integer>> permute(int[] nums) {
