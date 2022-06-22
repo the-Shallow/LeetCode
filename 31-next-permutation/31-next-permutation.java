@@ -25,7 +25,7 @@ class Solution {
         
         reverse(nums,first+1,nums.length-1);
         
-        System.out.println(nums.toString());
+        System.out.println(Arrays.asList(nums));
     }
     
     public void swap( int[] nums, int loc1 , int loc2 ){
