@@ -5,9 +5,9 @@ class Solution {
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
         int length = candidates.length;
         
-        for( int i = 0;i<length;i++ ){
-            helper( candidates , 0 , new ArrayList<>() , i , target );
-        }
+
+            helper( candidates , 0 , new ArrayList<>() ,0 , target );
+        
         
         
         return res;
