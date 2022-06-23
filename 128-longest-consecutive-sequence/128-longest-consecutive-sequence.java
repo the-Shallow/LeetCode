@@ -1,3 +1,5 @@
+// Space Complexity = O(N)
+// Time Complexity = O(N)
 class Solution {
     public int longestConsecutive(int[] nums) {
         Set<Integer> set = new HashSet<>();
