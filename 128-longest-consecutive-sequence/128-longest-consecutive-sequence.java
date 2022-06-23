@@ -12,8 +12,8 @@ class Solution {
             if( !set.contains(num-1) ){
                 int streak = 1;
                 while( set.contains(num+1) ){
-                    num++;
-                    streak++;
+                    num+=1;
+                    streak+=1;
                 }
                 longestStreak = Math.max( longestStreak , streak );
             }
