@@ -1,3 +1,5 @@
+// Space Complexity = O(N)
+// Time Complexity = O(N^2)
 class Solution {
     Map<Integer,Integer> map = new HashMap<>();
     public int lengthOfLIS(int[] nums) {
