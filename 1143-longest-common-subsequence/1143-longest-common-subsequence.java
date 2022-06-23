@@ -1,3 +1,5 @@
+// Space Complexity = O(N)
+// Time Complexity = O(N^2)
 class Solution {
     Map<String,Integer> map = new HashMap<>();
     public int longestCommonSubsequence(String text1, String text2) {
