@@ -1,3 +1,5 @@
+// Space Complexity = O(N)
+// Time Complexity = O(N)
 class Solution {
     public int lengthOfLongestSubstring(String s) {
         Map<Character,Integer> map = new HashMap<>();
