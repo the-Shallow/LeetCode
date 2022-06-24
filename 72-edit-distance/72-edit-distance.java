@@ -1,3 +1,5 @@
+// Space Complexity = O(n^2)
+// Time Complexity = O(N^2)
 class Solution {
     int[][] memo;
     public int minDistance(String word1, String word2) {
