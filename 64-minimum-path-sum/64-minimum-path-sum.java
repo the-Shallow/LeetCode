@@ -1,3 +1,5 @@
+// Spcae Complexity = O(N^2)
+// Time Complexity = O(N^2)
 class Solution {
     int[][] memo;
     public int minPathSum(int[][] grid) {
