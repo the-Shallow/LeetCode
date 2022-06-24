@@ -1,3 +1,5 @@
+// Space Complexity = O(N)
+// Time Complexity = O(N)
 class Trie {
     
     class Node {
