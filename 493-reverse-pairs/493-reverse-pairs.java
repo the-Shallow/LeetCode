@@ -1,3 +1,5 @@
+// Space Complexity = O(N)
+// Time Complexity = O(N^2)
 class Solution {
     public int reversePairs(int[] nums) {
         return mergeSort(nums,0,nums.length-1);
@@ -37,6 +39,7 @@ class Solution {
         
         
         for(i = 0;i<length1;i++){
+            // Check for every element of left side array to right side if condition evaluates to true then only shift j pointer.
             while( j < length2 && arr1[i] > (2* (long)arr2[j]) ){
                 j++;
             }
