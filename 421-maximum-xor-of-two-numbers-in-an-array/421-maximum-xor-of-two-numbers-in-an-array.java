@@ -1,63 +1,51 @@
 class Solution {
     
     class Node {
-        char ch;
         Node[] children;
         
         
-        public Node( char ch ) {
-            this.ch = ch;
+        public Node(  ) {
             this.children = new Node[2];
         }
         
-        public void insert( Node curr , String binary ){
-            for( char ch : binary.toCharArray() ){
-                if( curr.children[ ch=='0'?0:1 ] == null ) curr.children[ch=='0'?0:1] = new Node(ch);
+        public void insert(Node curr , int num ){
+            for( int i = 31 ;i>=0;i-- ){
+                int currBit = (num >> i) & 1;
                 
-                curr = curr.children[ch=='0'?0:1];
+                if(curr.children[currBit] == null ) curr.children[currBit] = new Node();
+                
+                curr = curr.children[currBit];
             }
         }
         
-        public int maxXor( Node curr , String binary ){
-            String validString = "";
-            for( char ch : binary.toCharArray() ){
-                if( ch == '0' ){
-                    if( curr.children[1] == null ){
-                        validString += '0';
-                        curr = curr.children[0];
-                    }else {
-                        validString += '1';
-                        curr = curr.children[1];
-                    }
-                    
+        public int maxXor(Node curr, int num){
+            int xor = 0;
+            
+            for(int i = 31;i>=0;i--){
+                int requiredBit = 1 - ( (num >> i) & 1 );
+                
+                if(curr.children[requiredBit] == null) {
+                    curr = curr.children[1 - requiredBit];
                 }else {
-                    if( curr.children[0] == null ){
-                        validString += '0';
-                        curr = curr.children[1];
-                    }else {
-                        validString += '1';
-                        curr = curr.children[0];
-                    }
+                    xor |= (1 << i);
+                    curr = curr.children[requiredBit];
                 }
             }
             
-            return Integer.parseInt( validString,2 );
+            return xor;
         }
     }
     
-    Node root = new Node('o');
+    Node root = new Node();
     public int findMaximumXOR(int[] nums) {
         
         for( int num : nums ){
-            String binary = toBinary(num);
-            
-            root.insert(root,binary);
+            root.insert(root,num);
         }
         
         int maxXor = 0;
         for( int num : nums ){
-            String binary = toBinary(num);
-            int xor = root.maxXor(root,binary);
+            int xor = root.maxXor(root,num);
             
             maxXor = Math.max(maxXor,xor);
         }
