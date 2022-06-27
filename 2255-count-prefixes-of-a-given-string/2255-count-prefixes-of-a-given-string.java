@@ -51,6 +51,8 @@ class Solution {
 
 /*
 Here At first we have created a trie structure given the s string.
+
+Trie Structure stores each character of string s in the given order.
 Now we traverse through all  the string in our words array and check for each one if it is a prefix of s.
 
 To check we just need to check if each character of string are placed in trie in order then it is a prefix.
