@@ -1,3 +1,5 @@
+// Space Complexity = O(n*32)
+// Time Complexity = O(n*32)
 class Solution {
     
     class Node {
