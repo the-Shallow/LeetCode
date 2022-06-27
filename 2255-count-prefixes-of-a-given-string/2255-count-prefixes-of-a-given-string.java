@@ -1,3 +1,5 @@
+// Space Complexity = O(N)
+// Time Complexity = O(N^2) ( N = length of string s  ) If we have all strings in our word array equal to length n then each would take n time to check if it is a prefix.
 class Solution {
     class Node {
         char ch;
@@ -46,3 +48,10 @@ class Solution {
         curr.isEnd = true;
     }
 }
+
+/*
+Here At first we have created a trie structure given the s string.
+Now we traverse through all  the string in our words array and check for each one if it is a prefix of s.
+
+To check we just need to check if each character of string are placed in trie in order then it is a prefix.
+*/
