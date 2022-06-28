@@ -1,58 +1,25 @@
 class Solution {
-    
-    class Node {
-        char ch ;
-        boolean isEnd;
-        Node[] children;
-        
-        public Node(char ch){
-            this.ch = ch;
-            this.isEnd = false;
-            this.children = new Node[26];
-        }
-    }
-    
-    Map<String ,Boolean> map = new HashMap<>();
+    Set<String> set = new HashSet<>();
+    int[] memo;
     public boolean wordBreak(String s, List<String> wordDict) {
-        Node root = new Node('0');
-        
-        for( String word : wordDict ){
-            insert( word , root );
-        }
-        
-        return helper( s , root , root );
+        for(String word : wordDict) set.add(word);
+        memo = new int[s.length()+1];
+        return helper(s,0);
     }
     
-    public boolean helper(  String s , Node curr , Node root  ){
-        if( s.length() == 0 ) return true;
+    public boolean helper(String s , int start ){
+        if( start == s.length() ) return true;
         
-        if( map.containsKey(s) ) return map.get(s);
-        boolean res = false;
-        for( int i = 0;i<s.length();i++ ){
-            
-            char ch = s.charAt(i);
-            
-            if( curr.children[ch - 'a'] == null ) return false;
-            curr = curr.children[ch - 'a'];
-            
-             if(curr.isEnd){
-                res = res | helper( s.substring(i+1) , root,root) ;
+        if( memo[start] != 0 ) return memo[start] == 1 ? true : false;
+        
+        for( int end = start + 1;end<=s.length();end++ ){
+            if( set.contains( s.substring(start,end) ) & helper( s , end ) ){
+                memo[start] = 1;
+                return true;
             }
-            
-            map.put(s,res);
-            if(res) return res;
         }
         
+        memo[start] = -1;
         return false;
-    }
-    
-    public void insert( String word , Node curr ){
-        for( char ch : word.toCharArray() ){
-            if( curr.children[ch - 'a'] == null ) curr.children[ch - 'a'] = new Node(ch);
-            
-            curr = curr.children[ch - 'a'];
-        }
-        
-        curr.isEnd = true;
     }
 }
