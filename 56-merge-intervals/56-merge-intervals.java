@@ -2,28 +2,40 @@
 // Time Complexity = O(n)
 class Solution {
     public int[][] merge(int[][] intervals) {
-        if( intervals.length <= 1 ) return intervals;
+        if(intervals.length == 0) return null;
         
-        Arrays.sort( intervals , (arr1,arr2) -> arr1[0] - arr2[0] );
+        Arrays.sort(intervals , (a,b)-> a[0] - b[0]);
         
-        List<int[]> list = new ArrayList<>();
-        int[] curr_interval = intervals[0];
-        list.add( curr_interval );
+        List<int[]> res = new ArrayList<>();
         
-        for( int[] interval : intervals ){
-            int curr_begin = curr_interval[0];
-            int curr_end = curr_interval[1];
-            int next_begin = interval[0];
-            int next_end = interval[1];
+        int[] currInterval = intervals[0];
+        
+        for(int[] curr : intervals ){
+            int start = currInterval[0];
+            int end = currInterval[1];
+            int currStart = curr[0];
+            int currEnd = curr[1];
             
-            if( curr_end >= next_begin ){
-                curr_interval[1] = Math.max( curr_end , next_end );
+            if( end >= currStart ){
+                currInterval[1] = Math.max(end , currEnd);
             }else {
-                curr_interval = interval;
-                list.add(curr_interval);
+                res.add( currInterval );
+                currInterval = curr;
             }
         }
         
-       return list.toArray(new int[list.size()][]);
+        res.add(currInterval);
+        return getArray(res);
+    }
+    
+    public int[][] getArray( List<int[]> list ){
+        int[][] res = new int[list.size()][2];
+        
+        for(int i = 0;i<list.size();i++){
+            res[i][0] = list.get(i)[0];
+            res[i][1] = list.get(i)[1];
+        }
+        
+        return res;
     }
 }
