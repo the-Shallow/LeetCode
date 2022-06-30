@@ -1,5 +1,5 @@
 // Space Complexity = O(N)
-// Time Complexity = O(N^2)
+// Time Complexity = O(NlogN)
 class Solution {
     public int reversePairs(int[] nums) {
         return mergeSort(nums,0,nums.length-1);
