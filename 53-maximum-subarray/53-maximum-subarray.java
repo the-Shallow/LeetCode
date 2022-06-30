@@ -1,3 +1,5 @@
+// Space Complexity = O(1)
+// Time Complexity = O(N)
 class Solution {
     public int maxSubArray(int[] nums) {
         int max_here = Integer.MIN_VALUE;
