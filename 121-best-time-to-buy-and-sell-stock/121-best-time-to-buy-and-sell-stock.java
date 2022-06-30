@@ -1,3 +1,5 @@
+// Space Complexity = O(N^2)
+// Time Complexity = O(N^2)
 class Solution {
     int[][] memo;
     public int maxProfit(int[] prices) {
