@@ -1,22 +1,18 @@
 // Space Complexity = O(1)
-// Time Complexity = O(logn + n)
+// Time Complexity = O(m + n)
 class Solution {
     public boolean searchMatrix(int[][] matrix, int target) {
-        for( int[] row : matrix ){
-            int start = row[0],end = row[row.length-1];
+        int m = matrix.length;
+        int n = matrix[0].length;
+        
+        int i = 0;
+        int j = n-1;
+        
+        while( i < m && j >= 0 ){
+            if( matrix[i][j] == target ) return true;
             
-            if( start <= target && end >= target ){
-                int left = 0 , right = row.length-1;
-                
-                while( left <= right ){
-                    int mid = left + (right - left) / 2;
-                    
-                    if( row[mid] == target ) return true;
-                    
-                    if( row[mid] > target ) right = mid - 1;
-                    else left = mid + 1;
-                }
-            }
+            if(matrix[i][j] < target) i++;
+            else j--;
         }
         
         return false;
