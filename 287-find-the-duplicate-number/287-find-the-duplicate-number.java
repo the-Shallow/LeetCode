@@ -6,19 +6,18 @@ class Solution {
         
         int duplicate = -1;
         
-        while( low <= high ){
-            int curr = ( low + high ) / 2;
-            
+        while(low <= high){
+            int mid = ( low + high )/2;
             int count = 0;
-            for(int num : nums){
-                if(num <= curr) count++;
+            for( int num : nums ){
+                if( num <= mid ) count++; 
             }
             
-            if( count > curr ){
-                duplicate = curr;
-                high = curr - 1;
+            if(count > mid){
+                duplicate = mid;
+                high = mid - 1;
             }else {
-                low = curr + 1;
+                low = mid + 1;
             }
         }
         
