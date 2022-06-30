@@ -28,19 +28,38 @@
 // Approach 2
 // Space Complexity = O(1)
 // Time Complexity = O(N)
+// class Solution {
+//     public int maxProfit(int[] prices) {
+//         int min = Integer.MAX_VALUE,max = 0;
+        
+//         for(int i = 0;i<prices.length;i++){
+//             if(prices[i] < min) min = prices[i];
+//             else if( prices[i] > min ){
+//                 max = Math.max(max , prices[i] - min);
+//             }
+//         }
+        
+//         return max;
+//     } 
+// }
+
+// Approach 3
+// Space Complexity = O(N)
+// Time Complexity = O(N)
 class Solution {
     public int maxProfit(int[] prices) {
-        int min = Integer.MAX_VALUE,max = 0;
+        int[] maxSellArray = new int[prices.length];
+        int max = Integer.MIN_VALUE;
+        for( int i = prices.length - 1 ; i>=0 ; i-- ){
+            max = Math.max(max,prices[i]);
+            maxSellArray[i] = max;
+        }
         
+        max = 0;
         for(int i = 0;i<prices.length;i++){
-            if(prices[i] < min) min = prices[i];
-            else if( prices[i] > min ){
-                max = Math.max(max , prices[i] - min);
-            }
+            max = Math.max( max , maxSellArray[i] - prices[i] );
         }
         
         return max;
-    }
-    
-   
+    } 
 }
