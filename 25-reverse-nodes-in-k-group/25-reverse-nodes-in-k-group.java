@@ -23,8 +23,7 @@ class Solution {
             ListNode groupNext = kthNode.next;
             
             ListNode curr = reverse( temp , groupNext );
-            System.out.println(curr.val);
-            temp.next = groupNext;
+            
             groupPrev.next = curr;
             groupPrev = temp;
         }
@@ -33,7 +32,7 @@ class Solution {
     }
     
     public ListNode reverse(ListNode temp1 , ListNode groupNext){
-        ListNode temp3 = null;
+        ListNode temp3 = groupNext; // because we want to connext first node of group to next upcoming groups first element
         
         while(temp1 != groupNext){
             ListNode temp2 = temp1;
