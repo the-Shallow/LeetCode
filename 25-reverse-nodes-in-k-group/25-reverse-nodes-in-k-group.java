@@ -15,27 +15,27 @@ class Solution {
         ListNode groupPrev = dummy;
         
         while(true){
-            ListNode kth = getkthNode( groupPrev , k);
+            ListNode kthNode = getkthNode(groupPrev,k);
             
-            if(kth == null) break;
-           
-            ListNode groupNext = kth.next;
-            
-            ListNode temp3 = reverse( groupPrev.next , groupNext );
+            if(kthNode == null) break;
             
             ListNode temp = groupPrev.next;
-            groupPrev.next = temp3;
+            ListNode groupNext = kthNode.next;
+            
+            ListNode curr = reverse( temp , groupNext );
+            System.out.println(curr.val);
+            temp.next = groupNext;
+            groupPrev.next = curr;
             groupPrev = temp;
         }
         
         return dummy.next;
     }
     
-    public ListNode reverse(ListNode curr, ListNode groupNext){
-        ListNode temp1 = curr;
-        ListNode temp3 = groupNext;
+    public ListNode reverse(ListNode temp1 , ListNode groupNext){
+        ListNode temp3 = null;
         
-        while( temp1 != groupNext){
+        while(temp1 != groupNext){
             ListNode temp2 = temp1;
             temp1 = temp1.next;
             temp2.next = temp3;
@@ -45,13 +45,11 @@ class Solution {
         return temp3;
     }
     
-
-    
-    public ListNode getkthNode( ListNode curr, int k ){
-        while(k-- > 0){
+    public ListNode getkthNode(ListNode curr , int k){
+        while( k-- > 0 ){
             curr = curr.next;
             
-            if(curr == null ) return null;
+            if(curr == null) return null;
         }
         
         return curr;
