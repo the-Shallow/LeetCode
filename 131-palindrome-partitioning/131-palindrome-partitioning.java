@@ -1,8 +1,9 @@
 class Solution {
     List<List<String>> result = new ArrayList<>();
+    boolean[][] dp;
     public List<List<String>> partition(String s) {
         List<String> temp = new ArrayList<>();
-        
+        dp = new boolean[s.length()+1][s.length()+1];
         helper(s,0,temp);
         
         return result;
@@ -15,7 +16,8 @@ class Solution {
         }
         
         for( int j = curr_index ; j<s.length();j++ ){
-            if( isPalindrome( s.substring( curr_index , j+1 ) ) ){
+            if( (s.charAt(curr_index) == s.charAt(j) && dp[curr_index+1][j]) || isPalindrome( s.substring( curr_index , j+1 ) ) ){
+                dp[curr_index][j+1] = true;
                 temp.add( s.substring(curr_index,j+1) );
                 helper( s , j+1 , temp );
                 temp.remove( temp.size() - 1 );
