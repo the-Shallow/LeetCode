@@ -65,21 +65,13 @@ class Solution
         int[] indegree = new int[V];
         int[] res = new int[V];
         int k = 0;
-        // System.out.println( adj.size() );
+        
         for( int i = 0;i<V;i++ ){
-            // System.out.println(i);
-            // System.out.println( adj.get(i).size() );
             for( int j = 0;j<adj.get(i).size();j++ ){
                 indegree[ adj.get(i).get(j) ]++;
             }
         }
         
-        // System.out.println("Indegree--->");
-        // for(int top : indegree ){
-        //     System.out.println(top);
-        // }
-        
-        // System.out.println("--->");
         
         Queue<Integer> queue = new LinkedList<>();
         
@@ -96,12 +88,9 @@ class Solution
             
             for(int i = 0;i<size;i++){
                 int val = queue.poll();
-                // System.out.println(val);
-                // System.out.println("-----------");
                 res[k++] = val;
                 for( int j = 0;j<adj.get(val).size();j++ ){
                     indegree[adj.get(val).get(j)]--;
-                    // System.out.println( indegree[adj.get(val).get(j)]  );
                     if( indegree[ adj.get(val).get(j)]  == 0 ){
                         queue.offer( adj.get(val).get(j) );
                     }
@@ -109,10 +98,6 @@ class Solution
             }
         }
         
-        //   System.out.println("Res--->");
-        // for( int i = 0;i<res.length;i++ ){
-        //     System.out.println( res[i] );
-        // }
         
         return res;
     }
