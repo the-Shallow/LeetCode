@@ -32,42 +32,39 @@ class DriverClass {
 
 class Solution {
     // Function to detect cycle in a directed graph.
-    Set<Integer> visited = new HashSet<>();
-    Set<Integer> dfsVisited = new HashSet<>();
     Map<Integer,List<Integer>> map = new HashMap<>();
     public boolean isCyclic(int V, ArrayList<ArrayList<Integer>> adj) {
+        int[] indegree = new int[V];
+        
         for(int i = 0;i<adj.size();i++){
             List<Integer> temp = new ArrayList<>();
             for( int j = 0;j<adj.get(i).size();j++ ){
-                temp.add( adj.get(i).get(j) );
+                temp.add(adj.get(i).get(j) );
+                indegree[ adj.get(i).get(j) ]++;
             }
             
             map.put(i,temp);
         }
         
-        // Start visiting each node
+        Queue<Integer> queue = new LinkedList<>();
+        
         for( int i = 0;i<V;i++ ){
-            if( !visited.contains(i) ){
-                if( checkCycle(i) ) return true;
+            if(indegree[i] == 0 ) queue.offer(i);
+        }
+        
+        while( !queue.isEmpty() ){
+            int node = queue.poll();
+            
+            for( int neighbor : map.get(node) ){
+                indegree[neighbor]--;
+                
+                if( indegree[neighbor] == 0 ){
+                    queue.offer(neighbor);
+                }
             }
         }
         
-        return false;
-    }
-    
-    public boolean checkCycle( int node ){
-        visited.add( node );
-        dfsVisited.add(node);
-        
-        List<Integer> neighbors = map.get(node);
-        
-        for( int neighbor : neighbors ){
-            if( !visited.contains(neighbor) ){
-                if( checkCycle(neighbor) ) return true;
-            }else if( dfsVisited.contains(neighbor) ) return true;
-        }
-        
-        dfsVisited.remove(node);
+        for( int num : indegree ) if(num != 0) return true;
         return false;
     }
 }
