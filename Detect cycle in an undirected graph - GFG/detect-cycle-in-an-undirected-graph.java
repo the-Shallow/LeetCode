@@ -32,6 +32,16 @@ class GFG {
 
 
 class Solution {
+    
+    class Node {
+        int val;
+        int parent;
+        
+        public Node(int val , int parent){
+            this.val = val;
+            this.parent = parent;
+        }
+    }
     // Function to detect cycle in an undirected graph.
     Set<Integer> visited = new HashSet<>();
     Map<Integer,List<Integer>> map = new HashMap<>();
@@ -56,14 +66,25 @@ class Solution {
     }
     
     public boolean cycleCheck( int node,int prev ){
-        visited.add(node);
+        Queue<Node> queue = new LinkedList<>();
+        queue.add( new Node( node,prev ) );
         
-        for( int neighbor : map.get(node) ){
-            if( neighbor == prev ) continue;
-            if( !visited.contains(neighbor) ){
-                if( cycleCheck( neighbor , node ) ) return true;
-            }else {
-                return true;
+        visited.add( node );
+        
+        while( !queue.isEmpty() ){
+            int size = queue.size();
+            
+            for( int i = 0;i<size;i++ ){
+                Node curr = queue.poll();
+                
+                for( int neighbor : map.get(curr.val) ){
+                    if( visited.contains(neighbor) ) {
+                        if( curr.parent != neighbor ) return true;
+                    }else {
+                        visited.add(neighbor);
+                        queue.offer(new Node(neighbor , curr.val) );
+                    }
+                }
             }
         }
         
