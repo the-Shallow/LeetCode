@@ -37,8 +37,8 @@ class Solution {
         for( int i = 0;i<rows;i++ ){
             for(int j = 0;j<cols;j++){
                 if( grid[i][j] == '1' ){
-                    res++;
-                    helper( grid , i , j );
+                    // res++;
+                    res += helper( grid , i , j );
                 }
             }
         }
@@ -47,21 +47,21 @@ class Solution {
         return res;
     }
     
-    public void helper( char[][] grid , int row , int col ){
+    public int helper( char[][] grid , int row , int col ){
         if(row < 0 || col < 0 || row == grid.length || col == grid[0].length 
-        || grid[row][col] == '0' ) return;
+        || grid[row][col] == '0' ) return 0;
         
         grid[row][col] = '0';
+        int res = 1;
+        res |= helper( grid , row + 1 , col  );
+        res |= helper( grid, row - 1 ,col  );
+        res |= helper( grid , row , col + 1 );
+        res |= helper( grid , row , col - 1 );
+        res |= helper( grid , row + 1, col + 1 );
+        res |= helper(grid ,  row -1 , col - 1);
+        res |= helper( grid , row + 1, col - 1 );
+        res |= helper( grid , row - 1, col + 1 );
         
-        helper( grid , row + 1 , col  );
-        helper( grid, row - 1 ,col  );
-        helper( grid , row , col + 1 );
-        helper( grid , row , col - 1 );
-        helper( grid , row + 1, col + 1 );
-        helper(grid ,  row -1 , col - 1);
-        helper( grid , row + 1, col - 1 );
-        helper( grid , row - 1, col + 1 );
-        
-        return;
+        return res;
     }
 }
