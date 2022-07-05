@@ -49,74 +49,97 @@ class DriverClass
 
 class Solution
 {
-   static class Pair {
+    static class Node {
+        int start;
         int end;
         int distance;
         
-        public Pair(int end , int distance) {
+        public Node(int start , int end , int distance){
+            this.start = start;
             this.end = end;
             this.distance = distance;
         }
     }
+    
+    static class Disjoint {
+        int rank;
+        int parent;
+        
+        public Disjoint(){};
+        
+        public Disjoint(int rank , int parent){
+            this.rank = rank;
+            this.parent = parent;
+        }
+    }
+    
+    static int find( Disjoint[] disjoint , int node ){
+        if( disjoint[node].parent != node ){
+            return find( disjoint , disjoint[node].parent );
+        }
+        
+        return disjoint[node].parent;
+    }
+    
+    static void union(Disjoint[] disjoint , int start , int end ){
+        int startRoot = find(disjoint,start);
+        int endRoot = find(disjoint,end);
+        
+        if( disjoint[startRoot].rank < disjoint[endRoot].rank ){
+            disjoint[startRoot].parent = endRoot;
+        }else if( disjoint[startRoot].rank > disjoint[endRoot].rank ){
+            disjoint[endRoot].parent = startRoot; 
+        }else {
+            disjoint[endRoot].parent = startRoot;
+            disjoint[startRoot].rank++;
+        }
+    }
+    
+    
     //Function to find sum of weights of edges of the Minimum Spanning Tree.
     static int spanningTree(int V, ArrayList<ArrayList<ArrayList<Integer>>> adj) 
     {
-        Map<Integer,List<Pair>> map = new HashMap<>();
+        int res = 0;
+        List<Node> nodes = new ArrayList<>();
         
         for( int i = 0;i<adj.size();i++ ){
-            List<Pair> temp = new ArrayList<>();
-            for( int j = 0;j<adj.get(i).size();j++ ){
+            for(int j = 0;j < adj.get(i).size();j++ ){
+                int start = i;
                 int end = adj.get(i).get(j).get(0);
                 int distance = adj.get(i).get(j).get(1);
                 
-                Pair pair = new Pair( end ,distance );
-                temp.add(pair);
-            }
-            
-            map.put( i , temp );
-        }
-        
-        int[] visited = new int[V];
-        
-        int[] res = new int[V];
-        
-        for( int i = 0;i<V;i++ ){
-            visited[i] = -1;
-            res[i] = Integer.MAX_VALUE;
-        }
-        
-        res[0] = 0;
-        
-        for( int i = 0;i<V;i++ ){
-            
-            int node = getNextIndex(res,visited);
-            
-            visited[node] = 1;
-            
-            for( Pair neighbor : map.get(node) ){
-                if( visited[neighbor.end] == -1 && neighbor.distance != 0 
-                &&  neighbor.distance < res[neighbor.end]  ){
-                    res[neighbor.end] = neighbor.distance;
-                }
+                Node node = new Node(start,end,distance);
+               
+                nodes.add(node);
             }
         }
         
-        int distance = 0;
-        for(int num : res) distance += num;
         
-        return distance;
-    }
-    
-    static int getNextIndex(int[] arr ,int[] visited  ){
-        int min = Integer.MAX_VALUE,min_index = -1;
+        Collections.sort(nodes , (a,b) -> a.distance - b.distance );
+        Disjoint[] disjoint = new Disjoint[V];
         
-        for(int i = 0;i<arr.length;i++){
-            if( visited[i] == -1 &&  arr[i] < min ){
-                min = arr[i];
-                min_index = i;
+        for(int i = 0;i<V;i++){
+            disjoint[i] = new Disjoint();
+            disjoint[i].rank = 0;
+            disjoint[i].parent = i;
+        }
+        
+        for( int i = 0;i<nodes.size();i++ ){
+            Node curr = nodes.get(i);
+            // System.out.println(curr.distance);
+            int start = curr.start;
+            int end = curr.end;
+            
+            
+            int startRoot = find(disjoint,start);
+            int endRoot = find(disjoint,end);
+            
+            if(startRoot != endRoot){
+                res += curr.distance;
+                union( disjoint  , startRoot, endRoot );
             }
         }
         
-        return min_index;
+        return res;
     }
 }
