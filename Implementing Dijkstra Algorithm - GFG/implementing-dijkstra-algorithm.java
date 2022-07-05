@@ -56,57 +56,25 @@ class DriverClass
 
 class Solution
 {
+    //Function to find the shortest distance of all the vertices
+    //from the source vertex S.
     
     static class Pair {
         int end;
         int distance;
         
-        public Pair(int end , int distance){
+        public Pair(int end , int distance) {
             this.end = end;
             this.distance = distance;
         }
     }
-    //Function to find the shortest distance of all the vertices
-    //from the source vertex S.
-    static int[] dijkstra(int V, ArrayList<ArrayList<ArrayList<Integer>>> adj, int S)
-    {
-        Map<Integer,List<Pair>> map = getMatrix( adj );
-        // System.out.println(adj.size() );
-        int[] dist = new int[V];
-        Set<Integer> visited = new HashSet<>();
-        
-        for( int i = 0;i<V;i++ ){
-            dist[i] = Integer.MAX_VALUE;
-        }
-        
-        
-        dist[S] = 0;
-        
-        for( int i = 0;i<V-1;i++ ){
-            
-            int u = getNextIndex( dist,visited );
-            
-            visited.add(u);
-            
-            List<Pair> temp = map.get( u );
-            
-            for( Pair pair : temp ){
-                if( !visited.contains(pair.end) && pair.distance != 0 &&
-                    dist[u] + pair.distance < dist[pair.end] ){
-                        dist[pair.end] = dist[u] + pair.distance;
-                    }
-            }
-        }
-        
-        return dist;
-    }
     
-    static int getNextIndex( int[] dist , Set<Integer> set ){
-        int min_index = -1,min = Integer.MAX_VALUE;
+    static int minIndex(int[] arr ,int[] visited ){
+        int min = Integer.MAX_VALUE,min_index = -1;
         
-        for( int i = 0;i<dist.length;i++ ){
-            if( !set.contains(i) && dist[i] < min ){
-                min = dist[i];
+        for(int i = 0;i<arr.length;i++){
+            if( visited[i] == -1 &&  arr[i] < min ){
+                min = arr[i];
                 min_index = i;
             }
         }
@@ -114,21 +82,50 @@ class Solution
         return min_index;
     }
     
-    static Map<Integer,List<Pair>> getMatrix( ArrayList<ArrayList<ArrayList<Integer>>> adj){
+    static int[] dijkstra(int V, ArrayList<ArrayList<ArrayList<Integer>>> adj, int S)
+    {
         
         Map<Integer,List<Pair>> map = new HashMap<>();
         
         for( int i = 0;i<adj.size();i++ ){
             List<Pair> temp = new ArrayList<>();
             for( int j = 0;j<adj.get(i).size();j++ ){
-                Pair pair = new Pair( adj.get(i).get(j).get(0) , adj.get(i).get(j).get(1) );
+                int end = adj.get(i).get(j).get(0);
+                int distance = adj.get(i).get(j).get(1);
+                
+                Pair pair = new Pair( end ,distance );
                 temp.add(pair);
             }
             
-            map.put(i , temp);
+            map.put( i , temp );
         }
         
-        return map;
+        int[] visited = new int[V];
+        
+        int[] res = new int[V];
+        
+        for( int i = 0;i<V;i++ ){
+            visited[i] = -1;
+            res[i] = Integer.MAX_VALUE;
+        }
+        
+        res[S] = 0;
+        
+        for( int i = 0;i<V;i++ ){
+            
+            int node = minIndex(res,visited);
+            
+            visited[node] = 1;
+            
+            for( Pair neighbor : map.get(node) ){
+                if( visited[neighbor.end] == -1 && neighbor.distance != 0 
+                && res[node] + neighbor.distance < res[neighbor.end]  ){
+                    res[neighbor.end] = res[node] + neighbor.distance;
+                }
+            }
+        }
+        
+        return res;
     }
 }
 
