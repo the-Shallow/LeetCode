@@ -49,56 +49,70 @@ class DriverClass
 
 class Solution
 {
-    // class Pair {
-    //      int start;
-    //      int 
-    // }
+   static class Pair {
+        int end;
+        int distance;
+        
+        public Pair(int end , int distance) {
+            this.end = end;
+            this.distance = distance;
+        }
+    }
     //Function to find sum of weights of edges of the Minimum Spanning Tree.
     static int spanningTree(int V, ArrayList<ArrayList<ArrayList<Integer>>> adj) 
     {
-        int res = 0;
-        int[] dist = new int[V];
-        Set<Integer> visited = new HashSet<>();
-        for( int i = 0;i < V;i++ ){
-            dist[i] = Integer.MAX_VALUE;
-        }
+        Map<Integer,List<Pair>> map = new HashMap<>();
         
-        dist[0] = 0;
-        
-        for( int i = 0 ; i<adj.size()-1;i++ ){
-            int u = getNextIndex( dist , visited );
-            
-            visited.add(u);
-            // System.out.println(u);
-            // System.out.println( adj.get(u) );
-            for( int j = 0;j<adj.get(u).size();j++ ){
-                int end = adj.get(u).get(j).get(0);
-                int distance = adj.get(u).get(j).get(1);
-                // System.out.println(end);
-                if( !visited.contains( end ) && dist[u] != Integer.MAX_VALUE && 
-                    distance != 0 &&
-                     distance < dist[end] ){
-                        dist[end] =  distance ;
-                    }
+        for( int i = 0;i<adj.size();i++ ){
+            List<Pair> temp = new ArrayList<>();
+            for( int j = 0;j<adj.get(i).size();j++ ){
+                int end = adj.get(i).get(j).get(0);
+                int distance = adj.get(i).get(j).get(1);
+                
+                Pair pair = new Pair( end ,distance );
+                temp.add(pair);
             }
             
-            // for( int num : dist ) System.out.print(num + " " );
-            // System.out.println("----------");
+            map.put( i , temp );
         }
         
+        int[] visited = new int[V];
         
-        for( int num : dist ) res+=num;
+        int[] res = new int[V];
         
-        return res;
+        for( int i = 0;i<V;i++ ){
+            visited[i] = -1;
+            res[i] = Integer.MAX_VALUE;
+        }
+        
+        res[0] = 0;
+        
+        for( int i = 0;i<V;i++ ){
+            
+            int node = getNextIndex(res,visited);
+            
+            visited[node] = 1;
+            
+            for( Pair neighbor : map.get(node) ){
+                if( visited[neighbor.end] == -1 && neighbor.distance != 0 
+                &&  neighbor.distance < res[neighbor.end]  ){
+                    res[neighbor.end] = neighbor.distance;
+                }
+            }
+        }
+        
+        int distance = 0;
+        for(int num : res) distance += num;
+        
+        return distance;
     }
     
-    static int getNextIndex( int[] dist , Set<Integer> set ){
-        int min = Integer.MAX_VALUE;
-        int min_index = -1;
+    static int getNextIndex(int[] arr ,int[] visited  ){
+        int min = Integer.MAX_VALUE,min_index = -1;
         
-        for( int i = 0;i<dist.length;i++ ){
-            if( !set.contains(i) && dist[i] < min ){
-                min = dist[i];
+        for(int i = 0;i<arr.length;i++){
+            if( visited[i] == -1 &&  arr[i] < min ){
+                min = arr[i];
                 min_index = i;
             }
         }
