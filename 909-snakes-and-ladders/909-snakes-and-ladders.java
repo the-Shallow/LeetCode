@@ -13,6 +13,7 @@ class Solution {
     Map<Integer,int[]> map = new HashMap<>();
     Set<Integer> visited = new HashSet<>();
     public int snakesAndLadders(int[][] board) {
+        
         int n = board.length;
         n = n*n;
         
@@ -35,18 +36,19 @@ class Solution {
                 
                 for( int j = 1 ;j < 7;j++  ){
                     int val = pos + j;
+                    
                     if(val > n) break;
-                    // System.out.println(val);
+                    
                     Point next = new Point(val,curr.steps+1);
                     int[] cor = map.get(val);
-                    // System.out.println(Arrays.toString(cor));
+
                     if(  board[cor[0]][cor[1]] != -1) {
                         val = board[cor[0]][cor[1]];
                     }
                     
                     if(visited.contains(val)) continue;
+                    
                     next.number = val;
-                    // System.out.println(next.number + " " + next.steps);
                     visited.add(val);
                     queue.offer( next );
                 }
