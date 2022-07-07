@@ -1,25 +1,30 @@
 class Solution {
     Set<String> set = new HashSet<>();
-    int[] memo;
+    Map<String,Boolean> map = new HashMap<>();
     public boolean wordBreak(String s, List<String> wordDict) {
-        for(String word : wordDict) set.add(word);
-        memo = new int[s.length()+1];
-        return helper(s,0);
+        for( String word : wordDict ) set.add(word);
+        
+        return helper(s);
     }
     
-    public boolean helper(String s , int start ){
-        if( start == s.length() ) return true;
+    public boolean helper( String s ){
+        if( s.length() == 0 ) return true;
         
-        if( memo[start] != 0 ) return memo[start] == 1 ? true : false;
+        if( map.containsKey(s) ) return map.get(s);
         
-        for( int end = start + 1;end<=s.length();end++ ){
-            if( set.contains( s.substring(start,end) ) & helper( s , end ) ){
-                memo[start] = 1;
+        if( set.contains(s) ) {
+            map.put(s,true);
+            return true;
+        }
+        
+        for(int i = 0;i<s.length();i++){
+            if( set.contains( s.substring(0,i+1) ) && helper( s.substring(i+1) ) ){
+                map.put(s,true);
                 return true;
             }
         }
         
-        memo[start] = -1;
+        map.put(s,false);
         return false;
     }
 }
