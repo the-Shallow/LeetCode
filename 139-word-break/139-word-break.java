@@ -1,30 +1,65 @@
 class Solution {
-    Set<String> set = new HashSet<>();
-    Map<String,Boolean> map = new HashMap<>();
-    public boolean wordBreak(String s, List<String> wordDict) {
-        for( String word : wordDict ) set.add(word);
+    
+    class Node {
+        char ch;
+        Node[] children;
+        boolean isEnd;
         
-        return helper(s);
+        public Node(char ch){
+            this.ch = ch;
+            this.children = new Node[26];
+            this.isEnd = false;
+        }
     }
     
-    public boolean helper( String s ){
+    Node root = new Node('0');
+    Map<String,Boolean> map = new HashMap<>();
+    public boolean wordBreak(String s, List<String> wordDict) {
+        
+        for(String word : wordDict) insert(word);
+        
+        return helper(s);
+        
+    }
+    
+    public boolean helper(String s){
         if( s.length() == 0 ) return true;
         
-        if( map.containsKey(s) ) return map.get(s);
+        if(map.containsKey(s) ) return map.get(s);
         
-        if( set.contains(s) ) {
-            map.put(s,true);
-            return true;
-        }
-        
-        for(int i = 0;i<s.length();i++){
-            if( set.contains( s.substring(0,i+1) ) && helper( s.substring(i+1) ) ){
+        for( int i = 0;i<s.length();i++ ){
+            if( search( s.substring(0,i+1) ) && helper( s.substring(i+1) ) ){
                 map.put(s,true);
                 return true;
             }
         }
         
+        
         map.put(s,false);
         return false;
+    }
+    
+    public void insert( String word ){
+        Node curr = root;
+        
+        for( char ch : word.toCharArray() ){
+            if( curr.children[ch-'a'] == null ) curr.children[ch-'a'] = new Node(ch);
+            
+            curr = curr.children[ch-'a'];
+        }
+        
+        curr.isEnd = true;
+    }
+    
+    public boolean search(String word){
+        Node curr = root;
+        
+        for(char ch : word.toCharArray() ){
+            if( curr.children[ch-'a'] == null ) return false;
+            
+            curr = curr.children[ch-'a'];
+        }
+        
+        return curr.isEnd;
     }
 }
