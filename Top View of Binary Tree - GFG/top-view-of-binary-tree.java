@@ -125,48 +125,53 @@ class Node{
 
 class Solution
 {
+    
     static class Pair {
         Node root;
-        int hd;
+        int distance;
         
-        public Pair( Node curr , int level ){
-            this.root = curr;
-            this.hd = level;
+        public Pair(Node root,int distance){
+            this.root = root;
+            this.distance = distance;
         }
     }
     //Function to return a list of nodes visible from the top view 
     //from left to right in Binary Tree.
     static ArrayList<Integer> topView(Node root)
     {
-       ArrayList<Integer> res = new ArrayList<>();
-       Map<Integer,Integer> map = new TreeMap<>();
-       Queue<Pair> queue = new LinkedList<>();
-       
-       queue.offer( new Pair( root , 0 ) );
+        ArrayList<Integer> res = new ArrayList<>();
+        Map<Integer,Integer> map = new TreeMap<>();
+        Queue<Pair> queue = new LinkedList<>();
         
-       while( !queue.isEmpty() ){
-           Pair curr_pair = queue.poll();
-           int hd = curr_pair.hd;
-           
-           if( !map.containsKey(hd) ){
-               map.put( hd , curr_pair.root.data );
-           }
-           
-           if(curr_pair.root.left != null){
-               Pair pair = new Pair( curr_pair.root.left , hd-1 );
-               queue.offer(pair);
-           }
-           
-           if(curr_pair.root.right != null){
-               Pair pair = new Pair( curr_pair.root.right , hd+1 );
-               queue.offer(pair);
-           }
-       }
-       
-       for( Map.Entry<Integer,Integer> entry : map.entrySet() ){
-           res.add( entry.getValue() ); 
-       }
-       
-       return res;
+        queue.offer( new Pair(root , 0) );
+        
+        while( !queue.isEmpty() ){
+            int size = queue.size();
+            
+            for(int i = 0;i<size;i++){
+                Pair curr = queue.poll();
+                
+                if( !map.containsKey( curr.distance ) ){
+                    map.put(curr.distance,curr.root.data );
+                }
+                
+                if( curr.root.left != null ){
+                    Pair left = new Pair(curr.root.left, curr.distance - 1 );
+                    queue.offer(left);
+                }
+                
+                if(curr.root.right != null){
+                    Pair right = new Pair(curr.root.right,curr.distance + 1);
+                    queue.offer(right);
+                }
+            }
+        }
+        
+        
+        for( Map.Entry<Integer,Integer> entry : map.entrySet() ){
+            res.add( entry.getValue() );
+        }
+        
+        return res;
     }
 }
