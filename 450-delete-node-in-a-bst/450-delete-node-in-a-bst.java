@@ -67,15 +67,4 @@ class Solution {
         return root;
     }
     
-    public TreeNode search(TreeNode root, int key){
-        if(root == null) return root;
-        
-        if(root.val == key) return root;
-        
-        if( root.val < key ){
-            return search( root.right , key );
-        }
-        
-        return search(root.left , key );
-    }
 }
