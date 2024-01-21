@@ -28,6 +28,6 @@ class Solution {
             res = (res + count*arr[mid])% 1000000007;
         }
         
-        return (int)(res);
+        return (int)(res% 1000000007);
     }
 }
