@@ -11,19 +11,19 @@ class Solution {
         }
         
         
-        for(int i = 1;i<=maxMove;i++){
-            result = (result + helper(m,n,i,startRow, startColumn))% 1000000007 ;
-        }
+//         for(int i = 1;i<=maxMove;i++){
+//             result = (result + helper(m,n,i,startRow, startColumn))% 1000000007 ;
+//         }
         
-        return (int)(result);
+        return (int)(helper(m,n,maxMove,startRow, startColumn));
     }
     
     public long helper(int m, int n, int maxMove, int row, int col){
         
-        if( row < 0 || col < 0 || row == m || col == n  ) return maxMove == 0 ? 1 : 0;
+         if(maxMove < 0)  return 0;
+        if( row < 0 || col < 0 || row == m || col == n  )  return 1;
         // System.out.println(maxMove + " " + row + " " + col);
         
-        if(maxMove < 0)  return 0;
         if(dp[row][col][maxMove] != -1) return dp[row][col][maxMove];
         // System.out.println(maxMove + " " + row + " " + col);
         long left = helper(m,n,maxMove-1,row,col-1);
