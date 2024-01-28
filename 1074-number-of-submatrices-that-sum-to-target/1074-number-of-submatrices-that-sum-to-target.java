@@ -3,25 +3,43 @@ class Solution {
         int res = 0;
         int rows = matrix.length;
         int cols = matrix[0].length;
-        
+       
         int[][] matrixSum = new int[rows][cols];
         
         computeSubMatrixSum(matrix,matrixSum,rows,cols);
         // displayMatrix(matrixSum);
         
+//         for(int r1 = 0;r1<rows;r1++){
+//             for(int r2 = r1;r2<rows;r2++){
+//                 for(int c1 = 0;c1<cols;c1++){
+//                     for(int c2 = c1;c2<cols;c2++){
+//                         // System.out.println(r1 + " " + r2 + " " + c1 + " " + c2);
+//                         int totalSum = matrixSum[r2][c2];
+//                         int up = r1-1 >= 0 ? matrixSum[r1-1][c2] : 0;
+//                         int left = c1-1 >= 0 ? matrixSum[r2][c1-1] : 0;
+//                         int diag = ( r1 - 1 >= 0 && c1 - 1 >= 0 ) ? matrixSum[r1-1][c1-1] : 0; 
+//                         int sum =  totalSum - up - left + diag;
+                        
+//                         if(sum == target) res++;
+//                     }
+//                 }
+//             }
+//         }
+        
+        
         for(int r1 = 0;r1<rows;r1++){
             for(int r2 = r1;r2<rows;r2++){
-                for(int c1 = 0;c1<cols;c1++){
-                    for(int c2 = c1;c2<cols;c2++){
-                        // System.out.println(r1 + " " + r2 + " " + c1 + " " + c2);
-                        int totalSum = matrixSum[r2][c2];
-                        int up = r1-1 >= 0 ? matrixSum[r1-1][c2] : 0;
-                        int left = c1-1 >= 0 ? matrixSum[r2][c1-1] : 0;
-                        int diag = ( r1 - 1 >= 0 && c1 - 1 >= 0 ) ? matrixSum[r1-1][c1-1] : 0; 
-                        int sum =  totalSum - up - left + diag;
-                        
-                        if(sum == target) res++;
-                    }
+                Map<Integer,Integer> prefixSum = new HashMap<>();
+                prefixSum.put(0,1);
+                for(int c = 0;c<cols;c++){
+                    int prevSum = r1 -1 >=0 ? matrixSum[r1-1][c] : 0;
+                    int totalSubMatrixSum = matrixSum[r2][c];
+                    
+                    int curr_sum = totalSubMatrixSum - prevSum;
+                    // System.out.println(curr_sum);
+                    if( prefixSum.containsKey(curr_sum - target) ) res+=prefixSum.get(curr_sum-target);
+                    
+                    prefixSum.put( curr_sum, prefixSum.getOrDefault(curr_sum,0) + 1 );
                 }
             }
         }
