@@ -10,7 +10,7 @@ class Solution {
     }
     
     public int helper(String s, int start ){
-        if(map.containsKey(start)) return map.get(start);
+        // if(map.containsKey(start)) return map.get(start);
         
         int count = 0;
         for(int i = start;i<s.length();i++){
@@ -20,7 +20,7 @@ class Solution {
             if(flag) count++;
         }
         
-        map.put(start,count);
+        // map.put(start,count);
         
         return count;
     }
