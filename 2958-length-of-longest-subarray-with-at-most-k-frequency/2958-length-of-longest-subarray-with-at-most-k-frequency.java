@@ -9,10 +9,10 @@ class Solution {
             
             int freq = map.getOrDefault(num,0) + 1;
             map.put(num,freq);
-            // System.out.println(num + " " + freq);
+            
             while(left < nums.length && freq > k){
                 int leftNum = nums[left];
-                // System.out.println(leftNum);
+                
                 if(leftNum != num){
                     map.put(leftNum, map.get(leftNum)-1);
                 }else {
